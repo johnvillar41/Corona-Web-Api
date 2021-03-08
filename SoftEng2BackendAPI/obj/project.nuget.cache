@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Ic83L5ypi+EeOl+Ger1BMaioPVF+K4mNKM0NjTzNM3o35RGZ41A8ItqUlWmaRDwwlvHYaS51ds2isGbrNfnJ6A==",
+  "dgSpecHash": "SUV8kr9CHV0QueJxygAim6O4FXaP5LP1x9b4ZJE1TFs6HJXkAlvnFnliJ/Mu0hhZHK0hjI6HQhaRwKvE7CSLIA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Villar\\source\\repos\\johnvillar41\\SoftEng2CoronaVirusBackEnd\\SoftEng2BackendAPI\\SoftEng2BackendAPI.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Villar\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Villar\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Villar\\.nuget\\packages\\system.drawing.common\\5.0.1\\system.drawing.common.5.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
