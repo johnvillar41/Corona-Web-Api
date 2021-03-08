@@ -22,7 +22,7 @@ namespace SoftEng2BackendAPI.Repositories
                 command.Parameters.AddWithValue("@userID", user_id);
                 SqlDataReader reader = await command.ExecuteReaderAsync();
                 if (reader.Read())
-                {                 
+                {
                     UserModel.User_Status status;
                     if (reader["user_status"].Equals("Active"))
                     {
@@ -32,7 +32,7 @@ namespace SoftEng2BackendAPI.Repositories
                     {
                         status = UserModel.User_Status.INACTIVE;
                     }
-                   
+
                     byte[] myImageByteArrayData = (byte[])reader["profile_picture"];
                     string myImageBase64StringData = Convert.ToBase64String(myImageByteArrayData);
                     user = new UserModel(
@@ -41,20 +41,66 @@ namespace SoftEng2BackendAPI.Repositories
                         reader["user_password"].ToString(),
                         myImageBase64StringData,
                         status
-                        );                  
+                        );
                 }
             }
             return user;
         }
 
-        public IEnumerable<UserModel> FetchUsers()
+        public async Task<IEnumerable<UserModel>> FetchUsers()
         {
-            return null;
+            List<UserModel> userList = new List<UserModel>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string queryString = "SELECT * FROM User_Table";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+
+                    UserModel.User_Status status;
+                    if (reader["user_status"].Equals("Active"))
+                    {
+                        status = UserModel.User_Status.ACTIVE;
+                    }
+                    else
+                    {
+                        status = UserModel.User_Status.INACTIVE;
+                    }
+
+                    byte[] myImageByteArrayData = (byte[])reader["profile_picture"];
+                    string myImageBase64StringData = Convert.ToBase64String(myImageByteArrayData);
+                    UserModel user = new UserModel(
+                        int.Parse(reader["user_id"].ToString()),
+                        reader["user_username"].ToString(),
+                        reader["user_password"].ToString(),
+                        myImageBase64StringData,
+                        status
+                        );
+                    userList.Add(user);
+                }
+            }
+            return userList;
         }
 
-        public bool LoginUser(string username, string password)
+        public async Task<bool> LoginUser(string username, string password)
         {
-            throw new NotImplementedException();
+            bool isValid = false;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string queryString = "SELECT * FROM User_Table WHERE user_username=@username AND user_password=@password";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@password", password);
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+                if (reader.Read())
+                {
+                    isValid = true;
+                }
+            }
+            return isValid;
         }
     }
 }

@@ -7,10 +7,10 @@ namespace SoftEng2BackendAPI.Repositories
 {
     public interface IUserRepository
     {
-        IEnumerable<UserModel> FetchUsers();
+        Task<IEnumerable<UserModel>> FetchUsers();
         Task<UserModel> FetchSpecificUser(int user_id);
 
-        bool LoginUser(string username, string password);
+        Task<bool> LoginUser(string username, string password);
 
     }
 }

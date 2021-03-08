@@ -21,9 +21,10 @@ namespace SoftEng2BackendAPI.Controllers
 
         //GET api/User
         [HttpGet]
-        public ActionResult<IEnumerable<UserModel>> LoadAllUsers()
+        public async Task<ActionResult<IEnumerable<UserModel>>> LoadAllUsers()
         {
-            return Ok(_repository.FetchUsers());
+            var userList = await _repository.FetchUsers();
+            return Ok(userList);
         }
 
 
@@ -41,12 +42,12 @@ namespace SoftEng2BackendAPI.Controllers
 
         //GET api/User/{user}/{password}
         [HttpGet("{user}/{pass}")]
-        public ActionResult LoadLoginUser(string user, string pass)
+        public async Task<ActionResult> LoadLoginUser(string user, string pass)
         {
-            var checkLogin = _repository.LoginUser(user, pass);
+            var checkLogin = await _repository.LoginUser(user, pass);
             if (checkLogin)
             {
-                return Ok();
+                return Ok("Congrats");
             }
             return NotFound();
         }
