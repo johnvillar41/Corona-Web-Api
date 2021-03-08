@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftEng2BackendAPI.ApikeyAttribute;
 using SoftEng2BackendAPI.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace SoftEng2BackendAPI.Controllers
 {
     [ApiController]
+    [ApikeyAuth]
     [Route("api/User")]
     public class UserController : ControllerBase
     {

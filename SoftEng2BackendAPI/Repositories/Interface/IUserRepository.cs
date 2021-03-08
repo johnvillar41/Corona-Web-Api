@@ -9,8 +9,6 @@ namespace SoftEng2BackendAPI.Repositories
     {
         Task<IEnumerable<UserModel>> FetchUsers();
         Task<UserModel> FetchSpecificUser(int user_id);
-
         Task<bool> LoginUser(string username, string password);
-
     }
 }
