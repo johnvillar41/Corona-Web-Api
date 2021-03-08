@@ -9,9 +9,11 @@ namespace SoftEng2BackendAPI
         public string User_Username { get; set; }
         public string User_Password { get; set; }
         public Image Profile_Picture { get; set; }
+        public string StringProfilePic { get; set; }
 
         private User_Status status;
         public enum User_Status { ACTIVE, INACTIVE }
+        //For inserting data to db
         public UserModel(int user_ID, string user_Username, string user_Password, Image profile_Picture, User_Status status)
         {
             User_ID = user_ID;
@@ -21,6 +23,16 @@ namespace SoftEng2BackendAPI
             this.status = status;
         }
 
+        //For Fetching data from db
+        public UserModel(int user_ID, string user_Username, string user_Password, string profileString, User_Status status)
+        {
+            User_ID = user_ID;
+            User_Username = user_Username;
+            User_Password = user_Password;
+            StringProfilePic = profileString;
+            this.status = status;
+        }     
+     
         public UserModel()
         {
         }

@@ -29,9 +29,9 @@ namespace SoftEng2BackendAPI.Controllers
 
         //GET api/User/{id}
         [HttpGet("{id}")]
-        public ActionResult<UserModel> FetchSpecificUser(int id)
+        public async Task<ActionResult<UserModel>> FetchSpecificUser(int id)
         {
-            var specificUser = _repository.FetchSpecificUser(id);
+            var specificUser = await _repository.FetchSpecificUser(id);
             if (specificUser != null)
             {
                 return Ok(specificUser);

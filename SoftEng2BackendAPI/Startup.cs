@@ -6,8 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SoftEng2BackendAPI.Repositories;
-using SoftEng2BackendAPI.Repositories.MockImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,10 @@ namespace SoftEng2BackendAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IUserRepository, MockUserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddControllers().AddNewtonsoftJson(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

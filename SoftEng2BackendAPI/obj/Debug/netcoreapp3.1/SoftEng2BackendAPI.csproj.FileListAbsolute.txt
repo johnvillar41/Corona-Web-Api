@@ -24,3 +24,13 @@ C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2Bac
 C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\obj\Debug\netcoreapp3.1\SoftEng2BackendAPI.csproj.CopyComplete
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
