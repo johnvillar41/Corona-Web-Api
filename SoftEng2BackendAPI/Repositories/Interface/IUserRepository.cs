@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SoftEng2BackendAPI.Repositories
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         IEnumerable<UserModel> FetchUsers();
         UserModel FetchSpecificUser(int user_id);

@@ -9,20 +9,46 @@ using System.Threading.Tasks;
 namespace SoftEng2BackendAPI.Controllers
 {
     [ApiController]
-    [Route("[api/controller]")]
+    [Route("api/User")]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _repository;
+        private IUserRepository _repository;
 
-        public UserController(UserRepository repository)
+        public UserController(IUserRepository repository)
         {
             _repository = repository;
         }
 
+        //GET api/User
         [HttpGet]
-        public Task<IEnumerable<UserModel>> Get()
+        public ActionResult<IEnumerable<UserModel>> LoadAllUsers()
         {
-            return null;
+            return Ok(_repository.FetchUsers());
+        }
+
+
+        //GET api/User/{id}
+        [HttpGet("{id}")]
+        public ActionResult<UserModel> FetchSpecificUser(int id)
+        {
+            var specificUser = _repository.FetchSpecificUser(id);
+            if (specificUser != null)
+            {
+                return Ok(specificUser);
+            }
+            return NotFound();
+        }
+
+        //GET api/User/{user}/{password}
+        [HttpGet("{user}/{pass}")]
+        public ActionResult LoadLoginUser(string user, string pass)
+        {
+            var checkLogin = _repository.LoginUser(user, pass);
+            if (checkLogin)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
     }
 }

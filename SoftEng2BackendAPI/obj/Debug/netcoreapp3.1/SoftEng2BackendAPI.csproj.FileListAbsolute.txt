@@ -18,3 +18,9 @@ C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2Bac
 C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\obj\Debug\netcoreapp3.1\SoftEng2BackendAPI.dll
 C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\obj\Debug\netcoreapp3.1\SoftEng2BackendAPI.pdb
 C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\obj\Debug\netcoreapp3.1\SoftEng2BackendAPI.genruntimeconfig.cache
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Villar\source\repos\johnvillar41\SoftEng2CoronaVirusBackEnd\SoftEng2BackendAPI\obj\Debug\netcoreapp3.1\SoftEng2BackendAPI.csproj.CopyComplete
