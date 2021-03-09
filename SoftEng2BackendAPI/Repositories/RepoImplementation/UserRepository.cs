@@ -11,7 +11,7 @@ namespace SoftEng2BackendAPI.Repositories
     public class UserRepository : IUserRepository
     {
         private const string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CoronaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public async Task<UserModel> FetchSpecificUser(int user_id)
+        public async Task<UserModel> FetchSpecificUserAsync(int user_id)
         {
             UserModel user = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -47,7 +47,7 @@ namespace SoftEng2BackendAPI.Repositories
             return user;
         }
 
-        public async Task<IEnumerable<UserModel>> FetchUsers()
+        public async Task<IEnumerable<UserModel>> FetchUsersAsync()
         {
             List<UserModel> userList = new List<UserModel>();
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -84,7 +84,7 @@ namespace SoftEng2BackendAPI.Repositories
             return userList;
         }
 
-        public async Task<bool> LoginUser(string username, string password)
+        public async Task<bool> LoginUserAsync(string username, string password)
         {
             bool isValid = false;
             using (SqlConnection connection = new SqlConnection(connectionString))

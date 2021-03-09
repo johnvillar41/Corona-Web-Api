@@ -25,7 +25,7 @@ namespace SoftEng2BackendAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserModel>>> LoadAllUsers()
         {
-            var userList = await _repository.FetchUsers();
+            var userList = await _repository.FetchUsersAsync();
             return Ok(userList);
         }
 
@@ -34,7 +34,7 @@ namespace SoftEng2BackendAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserModel>> FetchSpecificUser(int id)
         {
-            var specificUser = await _repository.FetchSpecificUser(id);
+            var specificUser = await _repository.FetchSpecificUserAsync(id);
             if (specificUser != null)
             {
                 return Ok(specificUser);
@@ -46,7 +46,7 @@ namespace SoftEng2BackendAPI.Controllers
         [HttpGet("{user}/{pass}")]
         public async Task<ActionResult> LoadLoginUser(string user, string pass)
         {
-            var checkLogin = await _repository.LoginUser(user, pass);
+            var checkLogin = await _repository.LoginUserAsync(user, pass);
             if (checkLogin)
             {
                 return Ok("Congrats");
