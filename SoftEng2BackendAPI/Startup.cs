@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SoftEng2BackendAPI.Repositories;
+using SoftEng2BackendAPI.Repositories.Interface;
+using SoftEng2BackendAPI.Repositories.RepoImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,7 @@ namespace SoftEng2BackendAPI
         {
             services.AddControllers();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISymptomRepository, SymptomsRepository>();
             services.AddControllers().AddNewtonsoftJson(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
