@@ -8,11 +8,11 @@ namespace SoftEng2BackendAPI.Repositories.Interface
 {
     public interface ISymptomRepository
     {
-        Task<IEnumerable<SymptomsModel>> FetchAllSymptomsAsync();
+        Task<IEnumerable<SymptomsModel>> FetchAllPeopleWithSymptomsAsync();
 
-        Task<SymptomsModel> FetchSpecificSymptomAsync(int symptom_id);
+        Task<IEnumerable<UserModel>> FetchStudentsWithSpecificSymptomAsync(string symptom_name);
 
-        Task<IEnumerable<SymptomsModel>> FetchAllSymptomsForSpecificStudentAsync(int student_id);
+        Task<IEnumerable<SymptomsModel>> FetchSymptomsForSpecificStudentAsync(int student_id);
 
 
     }
