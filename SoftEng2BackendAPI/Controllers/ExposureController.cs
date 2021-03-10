@@ -23,12 +23,23 @@ namespace SoftEng2BackendAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> LoadAllExposedStudents()
         {
-            List<ExposureModel> exposureList = (List<ExposureModel>)await _repository.FetchAllExposedStudents();
+            List<ExposureModel> exposureList = (List<ExposureModel>)await _repository.FetchAllExposedStudentsAsync();
             if (exposureList.Count == 0)
             {
                 return NotFound("No Records");
             }
             return Ok(exposureList);
+        }
+        //GET api/Exposure/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult> LoadExposedStudentGivenAnID(int id)
+        {
+            List<UserModel> exposedStudents = (List<UserModel>)await _repository.FetchExposedStudentsGivenByIDAsync(id);
+            if(exposedStudents.Count == 0)
+            {
+                return NotFound("No Records");
+            }
+            return Ok(exposedStudents);
         }
     }
 }

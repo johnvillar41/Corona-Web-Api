@@ -9,7 +9,7 @@ namespace SoftEng2BackendAPI.Repositories.Interface
 {
     public interface IExposureRepository
     {
-        Task<IEnumerable> FetchAllExposedStudents();
-        Task<IEnumerable<ExposureModel>> FetchExposedStudentsGivenByID(int id);
+        Task<IEnumerable> FetchAllExposedStudentsAsync();
+        Task<IEnumerable<UserModel>> FetchExposedStudentsGivenByIDAsync(int id);
     }
 }
