@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SoftEng2BackendAPI.Controllers
 {
     [ApiController]
-    //[ApikeyAuth]
+    [ApikeyAuth]
     [Route("api/Symptoms")]
     public class SymptomsController : ControllerBase
     {
@@ -41,7 +41,7 @@ namespace SoftEng2BackendAPI.Controllers
             }
             return Ok(listOfSymptomsForStudent);
         }
-        //GET api/Symptoms/{symptom}
+        //GET api/Symptoms/StudentsWithSymptoms/{symptom}
         [HttpGet("StudentsWithSymptoms/{symptom}")]
         public async Task<ActionResult> FetchStudentsWithSpecificSymptoms(string symptom)
         {

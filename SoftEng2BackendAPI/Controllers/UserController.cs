@@ -53,5 +53,16 @@ namespace SoftEng2BackendAPI.Controllers
             }
             return NotFound();
         }
+        //POST api/User
+        [HttpPost]
+        public async Task<ActionResult> RegisterUser([FromBody]UserModel newUser)
+        {
+            if(newUser == null)
+            {
+                return NoContent();
+            }
+            await _repository.RegisterNewUserAsync(newUser);
+            return Ok(newUser);
+        }
     }
 }
