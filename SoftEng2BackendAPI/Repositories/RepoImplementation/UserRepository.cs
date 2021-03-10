@@ -31,14 +31,15 @@ namespace SoftEng2BackendAPI.Repositories
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
                     if (reader.Read())
-                    {                      
-                        user = new UserModel(
-                            int.Parse(reader["user_id"].ToString()),
-                            reader["user_username"].ToString(),
-                            reader["user_password"].ToString(),
-                            reader["profile_picture"].ToString(),
-                            reader["user_status"].ToString()
-                            );
+                    {
+                        user = new UserModel
+                        {
+                            User_ID = int.Parse(reader["user_id"].ToString()),
+                            User_Username = reader["user_username"].ToString(),
+                            User_Password = reader["user_password"].ToString(),
+                            StringProfilePic = reader["profile_picture"].ToString(),
+                            User_Status = reader["user_status"].ToString()
+                        };                       
                     }
                 }
             }
@@ -61,14 +62,15 @@ namespace SoftEng2BackendAPI.Repositories
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
                     while (reader.Read())
-                    {                       
-                        UserModel user = new UserModel(
-                            int.Parse(reader["user_id"].ToString()),
-                            reader["user_username"].ToString(),
-                            reader["user_password"].ToString(),
-                            reader["profile_picture"].ToString(),
-                            reader["user_status"].ToString()
-                            );
+                    {
+                        UserModel user = new UserModel
+                        {
+                            User_ID = int.Parse(reader["user_id"].ToString()),
+                            User_Username = reader["user_username"].ToString(),
+                            User_Password = reader["user_password"].ToString(),
+                            StringProfilePic = reader["profile_picture"].ToString(),
+                            User_Status = reader["user_status"].ToString()
+                        };
                         userList.Add(user);
                     }
                 }

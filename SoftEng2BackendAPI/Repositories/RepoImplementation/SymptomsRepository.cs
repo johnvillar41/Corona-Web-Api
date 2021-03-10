@@ -30,14 +30,19 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 SqlDataReader reader = await command.ExecuteReaderAsync();
                 while (reader.Read())
                 {
-                    symptomsList.Add(new SymptomsModel(
-                        int.Parse(reader["symptoms_id"].ToString()),
-                        int.Parse(reader["user_id"].ToString()),
-                        reader["symptoms_name"].ToString()));
+                    SymptomsModel symptomsModel = new SymptomsModel
+                    {
+                        Symptoms_ID = int.Parse(reader["symptoms_id"].ToString()),
+                        User_ID = int.Parse(reader["user_id"].ToString()),
+                        Symptoms_Name = reader["symptoms_name"].ToString()
+                    };
+                    symptomsList.Add(symptomsModel);
                 }
+                return symptomsList;
             }
-            return symptomsList;
         }
+
+
         /// <summary>
         ///     This will fetch all the symptoms for a specific student
         /// </summary>
@@ -60,12 +65,15 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 {
                     while (reader.Read())
                     {
-                        symptomsList.Add(new SymptomsModel(
-                            int.Parse(reader["symptoms_id"].ToString()),
-                            int.Parse(reader["user_id"].ToString()),
-                            reader["symptoms_name"].ToString()));
-                    }
-                }                    
+                        SymptomsModel symptomsModel = new SymptomsModel
+                        {
+                            Symptoms_ID = int.Parse(reader["symptoms_id"].ToString()),
+                            User_ID = int.Parse(reader["user_id"].ToString()),
+                            Symptoms_Name = reader["symptoms_name"].ToString()
+                        };
+                        symptomsList.Add(symptomsModel);
+                    }                    
+                }
             }
             return symptomsList;
         }
@@ -85,7 +93,7 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             {
                 connection.Open();
                 List<int> listOfUserIds = GetAllUserIDFromSymptomsTable(symptom_name);
-                for(int i = 0; i < listOfUserIds.Count; i++)
+                for (int i = 0; i < listOfUserIds.Count; i++)
                 {
                     string queryString = "SELECT * FROM User_Table WHERE user_id = @user_id";
                     SqlCommand command = new SqlCommand(queryString, connection);
@@ -94,19 +102,18 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                     {
                         while (reader.Read())
                         {
-                            byte[] myImageByteArrayData = (byte[])reader["profile_picture"];
-                            string myImageBase64StringData = Convert.ToBase64String(myImageByteArrayData);
-                            UserModel user = new UserModel(
-                                int.Parse(reader["user_id"].ToString()),
-                                reader["user_username"].ToString(),
-                                reader["user_password"].ToString(),
-                                myImageBase64StringData,
-                                reader["user_status"].ToString()
-                                );
+                            UserModel user = new UserModel
+                            {
+                                User_ID = int.Parse(reader["user_id"].ToString()),
+                                User_Username = reader["user_username"].ToString(),
+                                User_Password = reader["user_password"].ToString(),
+                                StringProfilePic = reader["profile_picture"].ToString(),
+                                User_Status = reader["user_status"].ToString()
+                            };
                             userListWithSymptoms.Add(user);
                         }
-                    }                                
-                }                
+                    }
+                }
             }
             return userListWithSymptoms;
         }
@@ -121,11 +128,11 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
         /// </returns>
         private List<int> GetAllUserIDFromSymptomsTable(string symptom_name)
         {
-            List<int> user_ids = new List<int>();           
+            List<int> user_ids = new List<int>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 connection.Open();
-                string queryString = "SELECT user_id FROM Symptoms_Table WHERE symptoms_name = @symptom";                
+                string queryString = "SELECT user_id FROM Symptoms_Table WHERE symptoms_name = @symptom";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@symptom", symptom_name);
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -134,7 +141,7 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                     {
                         user_ids.Add(int.Parse(reader["user_id"].ToString()));
                     }
-                }                              
+                }
             }
             return user_ids;
         }

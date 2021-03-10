@@ -32,7 +32,7 @@ namespace SoftEng2BackendAPI.Controllers
         }
         //GET api/Symptoms/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult> FetchSymptomsForStudent(int id)
+        public async Task<ActionResult> LoadSymptomsForStudent(int id)
         {
             List<SymptomsModel> listOfSymptomsForStudent = (List<SymptomsModel>)await _repository.FetchSymptomsForSpecificStudentAsync(id);
             if(listOfSymptomsForStudent.Count == 0)
@@ -43,7 +43,7 @@ namespace SoftEng2BackendAPI.Controllers
         }
         //GET api/Symptoms/StudentsWithSymptoms/{symptom}
         [HttpGet("StudentsWithSymptoms/{symptom}")]
-        public async Task<ActionResult> FetchStudentsWithSpecificSymptoms(string symptom)
+        public async Task<ActionResult> LoadStudentsWithSpecificSymptoms(string symptom)
         {
             List<UserModel> listOfStudentsWithSpecificSymptoms = (List<UserModel>)await _repository.FetchStudentsWithSpecificSymptomAsync(symptom);
             if(listOfStudentsWithSpecificSymptoms.Count == 0)
