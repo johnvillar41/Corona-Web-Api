@@ -54,62 +54,30 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
         /// </returns>
         public async Task<IEnumerable<UserModel>> FetchExposedStudentsGivenByIDAsync(int id)
         {
-            List<int> listOfExposedIDS = (List<int>)await FetchExposedStudentIDs(id);
+
             List<UserModel> exposedStudents = new List<UserModel>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 connection.Open();
-                for (int i = 0; i < listOfExposedIDS.Count; i++)
-                {
-                    string queryString = "SELECT * FROM User_Table WHERE user_id=@id";
-                    SqlCommand command = new SqlCommand(queryString, connection);
-                    command.Parameters.AddWithValue("@id", listOfExposedIDS[i]);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                    {
-                        while (reader.Read())
-                        {
-                            UserModel user = new UserModel
-                            {
-                                User_ID = int.Parse(reader["user_id"].ToString()),
-                                User_Username = reader["user_username"].ToString(),
-                                User_Password = reader["user_password"].ToString(),
-                                StringProfilePic = reader["profile_picture"].ToString(),
-                                User_Status = reader["user_status"].ToString()
-                            };
-                            exposedStudents.Add(user);
-                        }
-                    }
-                }
-                return exposedStudents;
-            }
-        }
-        /// <summary>
-        ///     This Function Will fetch All the exposed ids given from the user_id
-        /// </summary>
-        /// <param name="id">
-        ///     Given the user_id
-        /// </param>
-        /// <returns>
-        ///     Will Return a list of exposed student ids
-        /// </returns>
-        private async Task<IEnumerable<int>> FetchExposedStudentIDs(int id)
-        {
-            List<int> exposedIDS = new List<int>();
-            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
-            {
-                connection.Open();
-                string queryString = "SELECT exposed_to_id FROM Exposure_Table WHERE user_id=@user_id";
+                string queryString = "SELECT Exposure_Table.exposed_to_id,User_Table.user_username,User_Table.profile_picture,User_Table.user_status FROM Exposure_Table INNER JOIN User_Table ON Exposure_Table.user_id = User_Table.user_id WHERE Exposure_Table.user_id=@user_id";
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@user_id", id);
+                command.Parameters.AddWithValue("@user_id",id);
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
                     while (reader.Read())
                     {
-                        exposedIDS.Add(int.Parse(reader["exposed_to_id"].ToString()));
+                        UserModel user = new UserModel
+                        {
+                            User_ID = int.Parse(reader["exposed_to_id"].ToString()),
+                            User_Username = reader["user_username"].ToString(),                            
+                            StringProfilePic = reader["profile_picture"].ToString(),
+                            User_Status = reader["user_status"].ToString()
+                        };
+                        exposedStudents.Add(user);
                     }
                 }
+                return exposedStudents;
             }
-            return exposedIDS;
         }
     }
 }

@@ -41,8 +41,6 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 return symptomsList;
             }
         }
-
-
         /// <summary>
         ///     This will fetch all the symptoms for a specific student
         /// </summary>
@@ -72,7 +70,7 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                             Symptoms_Name = reader["symptoms_name"].ToString()
                         };
                         symptomsList.Add(symptomsModel);
-                    }                    
+                    }
                 }
             }
             return symptomsList;
@@ -92,58 +90,25 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 connection.Open();
-                List<int> listOfUserIds = GetAllUserIDFromSymptomsTable(symptom_name);
-                for (int i = 0; i < listOfUserIds.Count; i++)
+                string queryString = "SELECT Symptoms_Table.user_id,User_Table.user_username,User_Table.profile_picture,User_Table.user_status FROM User_Table INNER JOIN Symptoms_Table ON Symptoms_Table.user_id = User_Table.user_id WHERE Symptoms_Table.symptoms_name=@symptoms";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@symptoms", symptom_name);                
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    string queryString = "SELECT * FROM User_Table WHERE user_id = @user_id";
-                    SqlCommand command = new SqlCommand(queryString, connection);
-                    command.Parameters.AddWithValue("@user_id", listOfUserIds[i]);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        UserModel user = new UserModel
                         {
-                            UserModel user = new UserModel
-                            {
-                                User_ID = int.Parse(reader["user_id"].ToString()),
-                                User_Username = reader["user_username"].ToString(),
-                                User_Password = reader["user_password"].ToString(),
-                                StringProfilePic = reader["profile_picture"].ToString(),
-                                User_Status = reader["user_status"].ToString()
-                            };
-                            userListWithSymptoms.Add(user);
-                        }
+                            User_ID = int.Parse(reader["user_id"].ToString()),
+                            User_Username = reader["user_username"].ToString(),                            
+                            StringProfilePic = reader["profile_picture"].ToString(),
+                            User_Status = reader["user_status"].ToString()
+                        };
+                        userListWithSymptoms.Add(user);
                     }
                 }
             }
             return userListWithSymptoms;
-        }
-        /// <summary>
-        ///     This will fetch all the user_ids which has a specific symptom name
-        /// </summary>
-        /// <param name="symptom_name">
-        ///     using symptom name to search from user_ids
-        /// </param>
-        /// <returns>
-        ///     returns all the ids in a list
-        /// </returns>
-        private List<int> GetAllUserIDFromSymptomsTable(string symptom_name)
-        {
-            List<int> user_ids = new List<int>();
-            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
-            {
-                connection.Open();
-                string queryString = "SELECT user_id FROM Symptoms_Table WHERE symptoms_name = @symptom";
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@symptom", symptom_name);
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        user_ids.Add(int.Parse(reader["user_id"].ToString()));
-                    }
-                }
-            }
-            return user_ids;
         }
     }
 }
