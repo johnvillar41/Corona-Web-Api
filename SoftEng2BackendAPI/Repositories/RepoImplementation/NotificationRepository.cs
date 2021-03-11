@@ -16,18 +16,25 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             List<NotificationsModel> notificationlist = new List<NotificationsModel>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                string queryString = "SELECT * FROM Notifications_Table";
+                string queryString = "SELECT Notifications_Table.notif_id,Notifications_Table.user_id,User_Table.user_id,User_Table.user_username,User_Table.profile_picture,User_Table.user_status,Notifications_Table.notification,Notifications_Table.is_seen,Notifications_Table.notification_type FROM Notifications_Table INNER JOIN User_Table ON Notifications_Table.user_id = User_Table.user_id";
                 connection.Open();
                 SqlCommand command = new SqlCommand(queryString, connection);
                 using (SqlDataReader reader =await command.ExecuteReaderAsync())
                 {
                     while (reader.Read())
                     {
+                        UserModel userModel = new UserModel
+                        {
+                            User_ID = int.Parse(reader["user_id"].ToString()),
+                            User_Username = reader["user_username"].ToString(),
+                            StringProfilePic = reader["profile_picture"].ToString(),
+                            User_Status = reader["user_status"].ToString()
+                        };
                         NotificationsModel model = new NotificationsModel
                         {
                             Notifications_ID = int.Parse(reader["notif_id"].ToString()),
                             User_ID = int.Parse(reader["user_id"].ToString()),
-                            UserModel = await FetchUser(int.Parse(reader["user_id"].ToString())),
+                            UserModel = userModel,
                             Notification = reader["notification"].ToString(),
                             Is_Seen = reader["is_seen"].ToString(),
                             Notification_Type = reader["notification_type"].ToString()
@@ -37,32 +44,6 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 }
             }
             return notificationlist;
-        }
-        private async Task<UserModel>FetchUser(int id)
-        {
-            UserModel user = null;
-            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
-            {
-                string queryString = "SELECT * FROM User_Table WHERE user_id=@user_id";
-                connection.Open();
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@user_id", id);
-                using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                {
-                    while (reader.Read())
-                    {
-                        user = new UserModel
-                        {
-                            User_ID = int.Parse(reader["user_id"].ToString()),
-                            User_Username = reader["user_username"].ToString(),
-                            User_Password = reader["user_password"].ToString(),
-                            StringProfilePic = reader["profile_picture"].ToString(),
-                            User_Status = reader["user_status"].ToString()
-                        };                       
-                    }
-                }
-            }
-            return user;
-        }
+        }        
     }
 }
