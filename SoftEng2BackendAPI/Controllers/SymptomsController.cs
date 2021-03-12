@@ -52,5 +52,27 @@ namespace SoftEng2BackendAPI.Controllers
             }
             return Ok(listOfStudentsWithSpecificSymptoms);
         }
+        //DELETE api/Symptoms/{id}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAllStudentsSymptoms(int id)
+        {
+            if (String.IsNullOrEmpty(id.ToString()))
+            {
+                return NotFound();
+            }
+            await _repository.DeleteAllStudentSymptomsAsync(id);
+            return Ok();
+        }
+        //POST api/Symptoms
+        [HttpPost]
+        public async Task<ActionResult>InsertNewSymptom([FromBody]SymptomsModel symptoms)
+        {
+            if(symptoms == null)
+            {
+                return NotFound();
+            }
+            await _repository.InsertNewSymptoms(symptoms);
+            return Ok();
+        }
     }
 }

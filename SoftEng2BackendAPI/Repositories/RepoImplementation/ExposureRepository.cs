@@ -106,5 +106,25 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 await command2.ExecuteNonQueryAsync();
             }            
         }
+        /// <summary>
+        ///     This function will update the exposed student values in database
+        /// </summary>
+        /// <param name="exposedModel">
+        ///     A new exposedModel will be passed as a parameter
+        /// </param>       
+        public async Task UpdateExposedStudentAsync(ExposureModel exposedModel)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "UPDATE Exposure_Table(user_id,exposed_to_id,exposed_date) VALUES (@user_id,@exposed_to_id,@exposed_date) WHERE exposed_id=@exposed_id";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_id", exposedModel.User_ID);
+                command.Parameters.AddWithValue("@exposed_to_id", exposedModel.Exposed_To_ID);
+                command.Parameters.AddWithValue("@exposed_date", exposedModel.Exposed_Date);
+                command.Parameters.AddWithValue("@exposed_id", exposedModel.Exposure_ID);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

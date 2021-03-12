@@ -14,13 +14,15 @@ namespace SoftEng2BackendAPI.Controllers
     [Route("api/User")]
     public class UserController : ControllerBase
     {
+        /// <summary>
+        ///     UserController will have no delete route you can only update its status
+        /// </summary>
         private IUserRepository _repository;
 
         public UserController(IUserRepository repository)
         {
             _repository = repository;
         }
-
         //GET api/User
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserModel>>> LoadAllUsers()
@@ -28,8 +30,6 @@ namespace SoftEng2BackendAPI.Controllers
             var userList = await _repository.FetchUsersAsync();
             return Ok(userList);
         }
-
-
         //GET api/User/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<UserModel>> FetchSpecificUser(int id)
@@ -41,7 +41,6 @@ namespace SoftEng2BackendAPI.Controllers
             }
             return NotFound();
         }
-
         //GET api/User/{user}/{password}
         [HttpGet("{user}/{pass}")]
         public async Task<ActionResult> LoadLoginUser(string user, string pass)
@@ -72,8 +71,9 @@ namespace SoftEng2BackendAPI.Controllers
             {
                 return NoContent();
             }
-            await _repository.UpdateStatusOfUserAsync(id,status);
+            await _repository.UpdateStatusOfUserAsync(id, status);
             return Ok();
         }
+        
     }
 }

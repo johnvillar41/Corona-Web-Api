@@ -13,7 +13,7 @@ namespace SoftEng2BackendAPI.Repositories.Interface
         Task<IEnumerable<UserModel>> FetchStudentsWithSpecificSymptomAsync(string symptom_name);
 
         Task<IEnumerable<SymptomsModel>> FetchSymptomsForSpecificStudentAsync(int student_id);
-
-
+        Task DeleteAllStudentSymptomsAsync(int id);
+        Task InsertNewSymptoms(SymptomsModel symptoms);
     }
 }

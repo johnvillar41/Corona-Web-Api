@@ -110,5 +110,40 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             }
             return userListWithSymptoms;
         }
+        /// <summary>
+        ///     This will delete the students all symptoms from db
+        /// </summary>
+        /// <param name="id">
+        ///     ID of student
+        /// </param>        
+        public async Task DeleteAllStudentSymptomsAsync(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "DELETE FROM Symptoms_Table WHERE user_id=@user_id";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_id", id);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+        /// <summary>
+        ///     Inserts a new type of symptom for the student
+        /// </summary>
+        /// <param name="symptoms">
+        ///     New Symptom model
+        /// </param>
+        public async Task InsertNewSymptoms(SymptomsModel symptoms)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "INSERT INTO Symptoms_Table(user_id,symptoms_name)VALUES(@user_id,@symptoms_name)";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_id", symptoms.User_ID);
+                command.Parameters.AddWithValue("@symptoms_name", symptoms.Symptoms_Name);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }
