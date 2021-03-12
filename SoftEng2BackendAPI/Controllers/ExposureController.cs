@@ -48,26 +48,26 @@ namespace SoftEng2BackendAPI.Controllers
             await _repository.InsertNewExposedStudentAsync(exposedModel);
             return Ok();
         }
-        //PUT api/Exposure
-        [HttpPut]
-        public async Task<ActionResult> UpdateExposedStudent([FromBody] ExposureModel exposedModel)
+        //PUT api/Exposure/{date}/{exposure_id}
+        [HttpPut("{date}/{exposure_id}")]
+        public async Task<ActionResult> UpdateExposedStudent(string date, int exposure_id)
         {
-            if (exposedModel == null)
+            if (date == null && String.IsNullOrEmpty(exposure_id.ToString()))
             {
                 return new NoContentResult();
             }
-            await _repository.UpdateExposedStudentAsync(exposedModel);
+            await _repository.UpdateExposedDateStudentAsync(date, exposure_id);
             return Ok();
         }
         //DELETE api/Exposure/{user_id}/{exposed_id}        
         [HttpDelete("{user_id}/{exposed_id}")]
-        public async Task<ActionResult> DeleteExosedStudent(int user_id,int exposed_id)
+        public async Task<ActionResult> DeleteExosedStudent(int user_id, int exposed_id)
         {
             if (String.IsNullOrEmpty(user_id.ToString()) && String.IsNullOrEmpty(exposed_id.ToString()))
             {
                 return NoContent();
             }
-            await _repository.DeleteExposedStudentAsync(user_id,exposed_id);
+            await _repository.DeleteExposedStudentAsync(user_id, exposed_id);
             return Ok();
         }
     }

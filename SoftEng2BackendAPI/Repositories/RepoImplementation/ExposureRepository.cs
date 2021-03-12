@@ -126,23 +126,24 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             }            
         }
         /// <summary>
-        ///     This function will update the exposed student values in database
+        ///     This function will update the date of the exposed student
         /// </summary>
-        /// <param name="exposedModel">
-        ///     A new exposedModel will be passed as a parameter
-        /// </param>       
-        public async Task UpdateExposedStudentAsync(ExposureModel exposedModel)
+        /// <param name="exposed_date">
+        ///     Parameter date to be updated
+        /// </param>
+        /// <param name="exposure_id">
+        ///     Id of the exposure
+        /// </param>
+        public async Task UpdateExposedDateStudentAsync(string exposed_date, int exposure_id)
         {
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 await connection.OpenAsync();
-                string queryString = "UPDATE Exposure_Table(user_id,exposed_to_id,exposed_date) VALUES (@user_id,@exposed_to_id,@exposed_date) WHERE exposed_id=@exposed_id";
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@user_id", exposedModel.User_ID);
-                command.Parameters.AddWithValue("@exposed_to_id", exposedModel.Exposed_To_ID);
-                command.Parameters.AddWithValue("@exposed_date", exposedModel.Exposed_Date);
-                command.Parameters.AddWithValue("@exposed_id", exposedModel.Exposure_ID);
-                await command.ExecuteNonQueryAsync();
+                string queryString = "UPDATE Exposure_Table SET exposed_date = @exposed_date WHERE exposure_id=@exposure_id";
+                SqlCommand command = new SqlCommand(queryString, connection);               
+                command.Parameters.AddWithValue("@exposed_date", exposed_date);
+                command.Parameters.AddWithValue("@exposure_id", exposure_id);
+                await command.ExecuteNonQueryAsync();                
             }
         }
     }
