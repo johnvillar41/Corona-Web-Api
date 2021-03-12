@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SoftEng2BackendAPI.ApikeyAttribute;
+using SoftEng2BackendAPI.Models;
 using SoftEng2BackendAPI.Repositories.Interface;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace SoftEng2BackendAPI.Controllers
         {
             _repository = repository;
         }
+        //GET api/Notifications
         [HttpGet]
         public async Task<ActionResult> LoadNotifcations()
         {
@@ -27,6 +29,17 @@ namespace SoftEng2BackendAPI.Controllers
                 return NotFound("No Records");
             }
             return Ok(notifications);
+        }
+        //POST api/Notifications
+        [HttpPost]
+        public async Task<ActionResult> CreateNewNotification([FromBody]NotificationsModel newNotification)
+        {
+            if(newNotification == null)
+            {
+                return new NoContentResult();
+            }
+            await _repository.InsertNewNotification(newNotification);
+            return Ok();
         }
     }
 }

@@ -50,6 +50,27 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 }
             }
             return notificationlist;
-        }        
+        }
+        /// <summary>
+        ///     This will insert a new Notification Object to the database
+        /// </summary>
+        /// <param name="newNotification">
+        ///     The notification object
+        /// </param>        
+        public async Task InsertNewNotification(NotificationsModel newNotification)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "INSERT INTO Notifications_Table(user_id,notification,is_seen,notification_type)" +
+                    "VALUES(@user_id,@notification,@is_seen,@notification_type)";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_id", newNotification.User_ID);
+                command.Parameters.AddWithValue("@notification", newNotification.Notification);
+                command.Parameters.AddWithValue("@is_seen", newNotification.Is_Seen);
+                command.Parameters.AddWithValue("@notification_type", newNotification.Notification_Type);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

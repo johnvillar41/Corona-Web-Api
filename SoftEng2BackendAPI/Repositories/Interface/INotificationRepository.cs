@@ -9,5 +9,6 @@ namespace SoftEng2BackendAPI.Repositories.Interface
     public interface INotificationRepository
     {
         Task<IEnumerable<NotificationsModel>> FetchAllNotificationsAsync();
+        Task InsertNewNotification(NotificationsModel newNotification);
     }
 }

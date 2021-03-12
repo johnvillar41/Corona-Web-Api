@@ -86,7 +86,7 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
         /// <returns>
         ///     Returns a void
         /// </returns>
-        public async Task InsertNewExposedStudent(ExposureModel exposureModel)
+        public async Task InsertNewExposedStudentAsync(ExposureModel exposureModel)
         {
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
