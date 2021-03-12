@@ -24,13 +24,13 @@ namespace SoftEng2BackendAPI.Repositories
             UserModel user = null;
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 string queryString = "SELECT * FROM User_Table WHERE user_id=@userID";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@userID", user_id);
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
                         user = new UserModel
                         {
@@ -56,12 +56,12 @@ namespace SoftEng2BackendAPI.Repositories
             List<UserModel> userList = new List<UserModel>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 string queryString = "SELECT * FROM User_Table";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         UserModel user = new UserModel
                         {
@@ -88,14 +88,14 @@ namespace SoftEng2BackendAPI.Repositories
             bool isValid = false;
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 string queryString = "SELECT * FROM User_Table WHERE user_username=@username AND user_password=@password";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@username", username);
                 command.Parameters.AddWithValue("@password", password);
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
                         isValid = true;
                     }
@@ -115,7 +115,7 @@ namespace SoftEng2BackendAPI.Repositories
         {
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 string queryString = "INSERT INTO User_Table(user_username,user_password,profile_picture,user_status)" +
                     "VALUES(@username,@password,@picture,@status)";
                 SqlCommand command = new SqlCommand(queryString, connection);

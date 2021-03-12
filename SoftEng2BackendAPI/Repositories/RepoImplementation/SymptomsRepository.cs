@@ -25,10 +25,10 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 string queryString = "SELECT * FROM Symptoms_Table";
-                connection.Open();
+                await connection.OpenAsync();
                 SqlCommand command = new SqlCommand(queryString, connection);
                 SqlDataReader reader = await command.ExecuteReaderAsync();
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     SymptomsModel symptomsModel = new SymptomsModel
                     {
@@ -55,13 +55,13 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             List<SymptomsModel> symptomsList = new List<SymptomsModel>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 string queryString = "SELECT * FROM Symptoms_Table WHERE user_id = @user_id";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@user_id", student_id);
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         SymptomsModel symptomsModel = new SymptomsModel
                         {
@@ -89,13 +89,13 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
             List<UserModel> userListWithSymptoms = new List<UserModel>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 string queryString = "SELECT Symptoms_Table.user_id,User_Table.user_username,User_Table.profile_picture,User_Table.user_status FROM User_Table INNER JOIN Symptoms_Table ON Symptoms_Table.user_id = User_Table.user_id WHERE Symptoms_Table.symptoms_name=@symptoms";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@symptoms", symptom_name);                
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         UserModel user = new UserModel
                         {

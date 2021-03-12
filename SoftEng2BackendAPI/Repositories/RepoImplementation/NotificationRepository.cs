@@ -11,17 +11,23 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
 {
     public class NotificationRepository : INotificationRepository
     {
+        /// <summary>
+        ///     This function will fetch all the notifications on the database
+        /// </summary>
+        /// <returns>
+        ///     Will return a list of Notifications model
+        /// </returns>
         public async Task<IEnumerable<NotificationsModel>> FetchAllNotificationsAsync()
         {
             List<NotificationsModel> notificationlist = new List<NotificationsModel>();
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 string queryString = "SELECT Notifications_Table.notif_id,Notifications_Table.user_id,User_Table.user_id,User_Table.user_username,User_Table.profile_picture,User_Table.user_status,Notifications_Table.notification,Notifications_Table.is_seen,Notifications_Table.notification_type FROM Notifications_Table INNER JOIN User_Table ON Notifications_Table.user_id = User_Table.user_id";
-                connection.Open();
+                await connection.OpenAsync();
                 SqlCommand command = new SqlCommand(queryString, connection);
                 using (SqlDataReader reader =await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         UserModel userModel = new UserModel
                         {

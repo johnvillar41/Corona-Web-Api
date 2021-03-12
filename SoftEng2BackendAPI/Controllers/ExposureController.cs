@@ -41,5 +41,12 @@ namespace SoftEng2BackendAPI.Controllers
             }
             return Ok(exposedStudents);
         }
+        //POST api/Exposure
+        [HttpPost]
+        public async Task<ActionResult> EnterNewExposedStudent([FromBody]ExposureModel exposedModel)
+        {           
+            await _repository.InsertNewExposedStudent(exposedModel);
+            return Ok();
+        }
     }
 }

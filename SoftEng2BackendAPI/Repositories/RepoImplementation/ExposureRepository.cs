@@ -79,5 +79,32 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 return exposedStudents;
             }
         }
+        /// <summary>
+        ///     This function will insert a new Exposed Student to the database and inverting those values so that both of the students are exposed to each other
+        /// </summary>
+        /// <param name="exposureModel"></param>
+        /// <returns>
+        ///     Returns a void
+        /// </returns>
+        public async Task InsertNewExposedStudent(ExposureModel exposureModel)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                //Created two queries which swaps the values so that the user who is exposed will also be exposed to the other and vice versa
+                string queryString = "INSERT INTO Exposure_Table(user_id,exposed_to_id,exposed_date) VALUES(@user_id,@exposed_id,@exposed_date)";
+                string queryString2 = "INSERT INTO Exposure_Table(exposed_to_id,user_id,exposed_date) VALUES(@user_id,@exposed_id,@exposed_date)";
+                connection.Open();
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_id", exposureModel.User_ID);
+                command.Parameters.AddWithValue("@exposed_id", exposureModel.Exposed_To_ID);
+                command.Parameters.AddWithValue("@exposed_date", exposureModel.Exposed_Date);
+                SqlCommand command2 = new SqlCommand(queryString2, connection);
+                command2.Parameters.AddWithValue("@user_id", exposureModel.User_ID);
+                command2.Parameters.AddWithValue("@exposed_id", exposureModel.Exposed_To_ID);
+                command2.Parameters.AddWithValue("@exposed_date", exposureModel.Exposed_Date);
+                await command.ExecuteNonQueryAsync();
+                await command2.ExecuteNonQueryAsync();
+            }            
+        }
     }
 }
