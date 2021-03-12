@@ -15,5 +15,6 @@ namespace SoftEng2BackendAPI.Repositories.Interface
         Task<IEnumerable<SymptomsModel>> FetchSymptomsForSpecificStudentAsync(int student_id);
         Task DeleteAllStudentSymptomsAsync(int id);
         Task InsertNewSymptoms(SymptomsModel symptoms);
+        Task DeleteSpecificSymptomAsync(int symptom_id);
     }
 }

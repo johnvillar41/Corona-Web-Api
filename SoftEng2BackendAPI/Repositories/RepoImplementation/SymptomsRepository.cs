@@ -145,5 +145,22 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
                 await command.ExecuteNonQueryAsync();
             }
         }
+        /// <summary>
+        ///     Will Delete a specific symptom in the database
+        /// </summary>
+        /// <param name="symptom_id">
+        ///     Given the symptom_id pk
+        /// </param>
+        public async Task DeleteSpecificSymptomAsync(int symptom_id)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "DELETE FROM Symptoms_Table WHERE symptoms_id=@symptoms_id";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@symptoms_id", symptom_id);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }
