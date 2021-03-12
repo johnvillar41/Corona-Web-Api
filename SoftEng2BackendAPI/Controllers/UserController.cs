@@ -55,14 +55,25 @@ namespace SoftEng2BackendAPI.Controllers
         }
         //POST api/User
         [HttpPost]
-        public async Task<ActionResult> RegisterUser([FromBody]UserModel newUser)
+        public async Task<ActionResult> RegisterUser([FromBody] UserModel newUser)
         {
-            if(newUser == null)
+            if (newUser == null)
             {
                 return NoContent();
             }
             await _repository.RegisterNewUserAsync(newUser);
             return Ok(newUser);
+        }
+        //PUT api/User/{id}/{status}
+        [HttpPut("{id}/{status}")]
+        public async Task<ActionResult> UpdateStatusOfUser(int id, string status)
+        {
+            if (status == null && String.IsNullOrEmpty(id.ToString()))
+            {
+                return NoContent();
+            }
+            await _repository.UpdateStatusOfUserAsync(id,status);
+            return Ok();
         }
     }
 }

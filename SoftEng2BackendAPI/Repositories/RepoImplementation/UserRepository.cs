@@ -126,6 +126,27 @@ namespace SoftEng2BackendAPI.Repositories
 
                 await command.ExecuteNonQueryAsync();
             }
-        }       
+        }
+        /// <summary>
+        ///     This will update the status of a specific user
+        /// </summary>
+        /// <param name="id">
+        ///     Id of the student
+        /// </param>
+        /// <param name="status">
+        ///     Status of the student
+        /// </param>        
+        public async Task UpdateStatusOfUserAsync(int id, string status)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "UPDATE User_Table SET user_status = @user_status WHERE user_id=@user_id";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_status", status);
+                command.Parameters.AddWithValue("@user_id", id);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }
