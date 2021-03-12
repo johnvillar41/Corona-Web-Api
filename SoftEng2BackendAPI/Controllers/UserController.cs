@@ -63,6 +63,17 @@ namespace SoftEng2BackendAPI.Controllers
             await _repository.RegisterNewUserAsync(newUser);
             return Ok(newUser);
         }
+        //PUT api/User/{id}
+        [HttpPut]
+        public async Task<ActionResult> UpdateUserModel([FromBody] UserModel userModel)
+        {
+            if (userModel == null)
+            {
+                return NoContent();
+            }
+            await _repository.UpdateSpecificUser(userModel);
+            return Ok();
+        }
         //PUT api/User/{id}/{status}
         [HttpPut("{id}/{status}")]
         public async Task<ActionResult> UpdateStatusOfUser(int id, string status)

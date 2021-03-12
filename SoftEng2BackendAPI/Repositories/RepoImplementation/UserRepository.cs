@@ -128,6 +128,25 @@ namespace SoftEng2BackendAPI.Repositories
             }
         }
         /// <summary>
+        ///     This will update the user profile excluding the status
+        /// </summary>
+        /// <param name="userModel">
+        ///     will pass an updated version of usermodel
+        /// </param>
+        public async Task UpdateSpecificUser(UserModel userModel)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "UPDATE User_Table SET user_username=@username,user_password=@password,profile_picture=@picture";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@username", userModel.User_Username);
+                command.Parameters.AddWithValue("@password", userModel.User_Password);
+                command.Parameters.AddWithValue("@picture", userModel.StringProfilePic);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+        /// <summary>
         ///     This will update the status of a specific user
         /// </summary>
         /// <param name="id">
