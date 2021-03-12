@@ -35,7 +35,7 @@ namespace SoftEng2BackendAPI.Controllers
         public async Task<ActionResult> LoadExposedStudentGivenAnID(int id)
         {
             List<UserModel> exposedStudents = (List<UserModel>)await _repository.FetchExposedStudentsGivenByIDAsync(id);
-            if(exposedStudents.Count == 0)
+            if (exposedStudents.Count == 0)
             {
                 return NotFound("No Records");
             }
@@ -43,20 +43,31 @@ namespace SoftEng2BackendAPI.Controllers
         }
         //POST api/Exposure
         [HttpPost]
-        public async Task<ActionResult> EnterNewExposedStudent([FromBody]ExposureModel exposedModel)
-        {           
+        public async Task<ActionResult> EnterNewExposedStudent([FromBody] ExposureModel exposedModel)
+        {
             await _repository.InsertNewExposedStudentAsync(exposedModel);
             return Ok();
         }
         //PUT api/Exposure
         [HttpPut]
-        public async Task<ActionResult> UpdateExposedStudent([FromBody]ExposureModel exposedModel)
+        public async Task<ActionResult> UpdateExposedStudent([FromBody] ExposureModel exposedModel)
         {
-            if(exposedModel == null)
+            if (exposedModel == null)
             {
                 return new NoContentResult();
             }
             await _repository.UpdateExposedStudentAsync(exposedModel);
+            return Ok();
+        }
+        //DELETE api/Exposure/{user_id}/{exposed_id}        
+        [HttpDelete("{user_id}/{exposed_id}")]
+        public async Task<ActionResult> DeleteExosedStudent(int user_id,int exposed_id)
+        {
+            if (String.IsNullOrEmpty(user_id.ToString()) && String.IsNullOrEmpty(exposed_id.ToString()))
+            {
+                return NoContent();
+            }
+            await _repository.DeleteExposedStudentAsync(user_id,exposed_id);
             return Ok();
         }
     }

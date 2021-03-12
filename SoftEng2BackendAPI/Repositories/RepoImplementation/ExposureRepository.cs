@@ -13,6 +13,25 @@ namespace SoftEng2BackendAPI.Repositories.RepoImplementation
     public class ExposureRepository : IExposureRepository
     {
         /// <summary>
+        ///     Deletes the exposed student from the ExposureTable
+        /// </summary>
+        /// <param name="user_id">
+        ///     Id of the to be deleted student
+        /// </param>
+        public async Task DeleteExposedStudentAsync(int user_id,int exposed_id)
+        {
+            using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
+            {
+                await connection.OpenAsync();
+                string queryString = "DELETE FROM Exposure_Table WHERE user_id = @user_id AND exposed_to_id =@exposed_id OR exposed_to_id = @user_id AND user_id=@exposed_id";
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@user_id", user_id);
+                command.Parameters.AddWithValue("@exposed_id", exposed_id);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
+        /// <summary>
         ///     This will fetch all the ExposedModels
         /// </summary>
         /// <returns>

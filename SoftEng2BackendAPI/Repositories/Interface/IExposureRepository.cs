@@ -13,5 +13,6 @@ namespace SoftEng2BackendAPI.Repositories.Interface
         Task<IEnumerable<UserModel>> FetchExposedStudentsGivenByIDAsync(int id);
         Task InsertNewExposedStudentAsync(ExposureModel exposureModel);
         Task UpdateExposedStudentAsync(ExposureModel exposedModel);
+        Task DeleteExposedStudentAsync(int user_id,int exposed_id);
     }
 }
