@@ -38,7 +38,8 @@ namespace SoftEng2BackendAPI.Repositories
                             User_Username = reader["user_username"].ToString(),
                             User_Password = reader["user_password"].ToString(),
                             StringProfilePic = reader["profile_picture"].ToString(),
-                            User_Status = reader["user_status"].ToString()
+                            User_Status = reader["user_status"].ToString(),
+                            Health_Status = reader["health_status"].ToString()
                         };                       
                     }
                 }
@@ -69,7 +70,8 @@ namespace SoftEng2BackendAPI.Repositories
                             User_Username = reader["user_username"].ToString(),
                             User_Password = reader["user_password"].ToString(),
                             StringProfilePic = reader["profile_picture"].ToString(),
-                            User_Status = reader["user_status"].ToString()
+                            User_Status = reader["user_status"].ToString(),
+                            Health_Status = reader["health_status"].ToString()
                         };
                         userList.Add(user);
                     }
@@ -116,13 +118,14 @@ namespace SoftEng2BackendAPI.Repositories
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 await connection.OpenAsync();
-                string queryString = "INSERT INTO User_Table(user_username,user_password,profile_picture,user_status)" +
-                    "VALUES(@username,@password,@picture,@status)";
+                string queryString = "INSERT INTO User_Table(user_username,user_password,profile_picture,user_status,health_status)" +
+                    "VALUES(@username,@password,@picture,@status,@healthStatus)";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@username", newUser.User_Username);
                 command.Parameters.AddWithValue("@password", newUser.User_Password);              
                 command.Parameters.AddWithValue("@picture", newUser.StringProfilePic);
                 command.Parameters.AddWithValue("@status", newUser.User_Status);
+                command.Parameters.AddWithValue("@healthStatus", newUser.Health_Status);
 
                 await command.ExecuteNonQueryAsync();
             }
@@ -138,11 +141,12 @@ namespace SoftEng2BackendAPI.Repositories
             using (SqlConnection connection = new SqlConnection(DBCredentials.CONNECTION_STRING))
             {
                 await connection.OpenAsync();
-                string queryString = "UPDATE User_Table SET user_username=@username,user_password=@password,profile_picture=@picture";
+                string queryString = "UPDATE User_Table SET user_username=@username,user_password=@password,profile_picture=@picture,health_status=@healthStatus";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@username", userModel.User_Username);
                 command.Parameters.AddWithValue("@password", userModel.User_Password);
                 command.Parameters.AddWithValue("@picture", userModel.StringProfilePic);
+                command.Parameters.AddWithValue("@healthStatus", userModel.Health_Status);
                 await command.ExecuteNonQueryAsync();
             }
         }

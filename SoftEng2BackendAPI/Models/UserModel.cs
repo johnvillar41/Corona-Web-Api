@@ -9,6 +9,7 @@ namespace SoftEng2BackendAPI
         public string User_Username { get; set; }
         public string User_Password { get; set; }       
         public string StringProfilePic { get; set; }
-        public string User_Status { get; set; }       
+        public string User_Status { get; set; }
+        public string Health_Status { get; set; }
     }
 }
