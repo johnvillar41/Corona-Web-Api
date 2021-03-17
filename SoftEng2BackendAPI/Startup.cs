@@ -34,7 +34,9 @@ namespace SoftEng2BackendAPI
             services.AddScoped<ISymptomRepository, SymptomsRepository>();
             services.AddScoped<IExposureRepository, ExposureRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
-            services.AddControllers().AddNewtonsoftJson(options => {
+            services.AddScoped<IMclTotalRepository, MclTotalRepository>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
         }
