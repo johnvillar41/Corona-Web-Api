@@ -1,13 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System;
-using System.Drawing;
-using System.IO;
 using SoftEng2BackendAPI.ApikeyAttribute;
-using System.Text;
-using System.Data;
 
 namespace SoftEng2BackendAPI.Repositories
 {
@@ -71,7 +65,7 @@ namespace SoftEng2BackendAPI.Repositories
                             User_Password = reader["user_password"].ToString(),
                             StringProfilePic = reader["profile_picture"].ToString(),
                             User_Status = reader["user_status"].ToString(),
-                            Health_Status = reader["health_status"].ToString()
+                            //Health_Status = reader["health_status"].ToString()
                         };
                         userList.Add(user);
                     }
